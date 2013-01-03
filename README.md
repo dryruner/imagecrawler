@@ -1,5 +1,5 @@
 # Overview
-This is an image crawler in pure shell script, which could download the images (actually the image URLs on the web) once given a keyword. It fakes the visits to Google Image or Baidu Image, using the keywords you provide to perform like a human search, and then parse and record the results(image urls) returned by Google or Baidu.
+This is an image crawler in pure shell script, which could download the images (actually the image URLs on the web) once given a keyword. It fakes to visit Google Image/Baidu Image, using the keywords you provide to perform like a human search, and then parse and record the results(image urls) returned by Google or Baidu. Once you have the image urls, you could download the real images using any script languages you like. This tool could also be used to compare the search quality and relevance between Google Image and Baidu Image.
 
 ## How to use it?
 * Input: A file named query\_list.txt, per keyword per line.
