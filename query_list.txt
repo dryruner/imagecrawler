@@ -1,0 +1,10 @@
+ruby
+python
+C++
+Java
+white
+black
+red
+green
+blue
+pink
