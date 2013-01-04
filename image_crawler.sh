@@ -9,15 +9,15 @@ num=$2;
 
 down_page()
 {
-	if [ "$from" = "baidu" ];then
-		if [ -e $from ];then
-			rm -rf $from;
-		fi
-		mkdir $from;
-		
+	if [ -e $from ];then
+		rm -rf $from;
+	fi
+	mkdir $from;
+	local k=1;
+
+	if [ "$from" = "baidu" ];then			
 		round=$(($num/60));
 		remain=$(($num - ${round}*60));
-		k=1;
 
 		while read query
 		do
@@ -40,14 +40,8 @@ down_page()
 		done < query_list.txt
 
 	elif [ "$from" = "google" ];then
-		if [ -e $from ];then
-			rm -rf $from
-		fi
-		mkdir $from
-
 		round=$(($num/20));
 		remain=$(($num - ${round}*20));
-		k=1;
 
 		while read query
 		do
@@ -70,7 +64,6 @@ down_page()
 
 	fi
 }
-
 
 ### main() ###
 down_page $num
