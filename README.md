@@ -14,7 +14,7 @@ I've tested this script with 10 keywords (just as in the query\_list.txt), each 
 Results are as follows:<br/>
      [siyuanh@unix14 ~/imagecrawler]$ time ./image\_crawler.sh google 300 <br/>
      0.396u 1.298s 0:31.91 5.2%	0+0k 0+23472io 0pf+0w <br/>
-It's acceptable I think. And in the future I'll tweak it into a more concurrent version. <br/>
+32s for 3000 results, it's acceptable I think. And in the future I'll tweak it into a more concurrent version. <br/>
 
 # Note:
 It works perfectly in linux platform(Ubuntu, Red Hat, etc.).
