@@ -10,11 +10,11 @@ This is an image crawler in pure shell script, which could download the images (
 * Output: The script will generate a directory named google/(or baidu/ as you choosed), which contains files of the format: "i\_objURL-list\_keyword[i]", i is the ith keyword in the query\_list.txt. In each of these files contain num lines, per image url per line.
 
 ## Performance
-I've tested this script with 10 keywords (just as in the query\_list.txt), each keyword crawling 300 results using Google. 
-Results are as follows:
-     [siyuanh@unix14 ~/imagecrawler]$ time ./image\_crawler.sh google 300
-     0.396u 1.298s 0:31.91 5.2%	0+0k 0+23472io 0pf+0w
-It's acceptable I think. And in the future I'll tweak it into a more concurrent version.
+I've tested this script with 10 keywords (just as in the query\_list.txt), each keyword crawling 300 results using Google.<br/> 
+Results are as follows:<br/>
+     [siyuanh@unix14 ~/imagecrawler]$ time ./image\_crawler.sh google 300 <br/>
+     0.396u 1.298s 0:31.91 5.2%	0+0k 0+23472io 0pf+0w <br/>
+It's acceptable I think. And in the future I'll tweak it into a more concurrent version. <br/>
 
 # Note:
 It works perfectly in linux platform(Ubuntu, Red Hat, etc.).
