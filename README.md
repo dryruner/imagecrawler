@@ -12,16 +12,10 @@ This is an image crawler in pure shell script, which could download the images (
 ## Performance
 I've tested this script with 10 keywords (just as in the query\_list.txt), each keyword crawling 300 results using Google.<br/> 
 Results are as follows:<br/>
-     [siyuanh@unix14 ~/imagecrawler]$ time ./image\_crawler.sh google 300 <br/>
+     [unix14 ~/imagecrawler]$ time ./image\_crawler.sh google 300 <br/>
      0.396u 1.298s 0:31.91 5.2%	0+0k 0+23472io 0pf+0w <br/>
-32s for 3000 results, it's acceptable I think. And in the future I'll tweak it into a more concurrent version. <br/>
+32s for 3000 results, and in the future I'll tweak it into a more concurrent version. <br/>
 
 # Note:
 It works perfectly in linux platform(Ubuntu, Red Hat, etc.).
 But it complains fault in Mac OS X terminal when crawling images from google(crawling from baidu is OK), because the sed utility is somewhat different in Mac and Linux platforms. Maybe I'll look into and fix it in the future.
-
-
-# Contacts:
-Siyuan Hua (siyuanh@andrew.cmu.edu)
-
-Thanks, :)
