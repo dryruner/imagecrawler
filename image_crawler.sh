@@ -6,7 +6,7 @@
 # Debug options
 #set -o xtrace
 
-###################### Config BEGIN ################################
+###################### Config BEGIN ####################################
 
 from=$1;
 num=$2;
@@ -19,6 +19,7 @@ FOLLOW_REDIRECT=   # Following the redirection, in case 301 moved was returned. 
 ROBOTS_CMD="-e robots=off"  # wget only, do not honor robots.txt rules.
 USERAGENT_FLAG=-U  # For curl, using '-A'
 USERAGENT_STRING="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36"
+EXPERIMENT="ON"    # If you want to turn off experiment functionality, you could it to "OFF"
 
 ########################## Congig END ##################################
 
@@ -45,11 +46,30 @@ function DetectEnv() {
   fi
 }
 
-function DownPage() {
+# Expriment functionality: downloading images after parsing the image query
+# result. You could turn it off by setting EXPERIMENT="OFF"
+function DownloadImage() {
+  if [ "$EXPERIMENT" != "ON" ];then
+    return
+  fi
+
+  from_filename=$1
+  save_dir=$2
+  mkdir -p $save_dir
+  curr=1
+  while read url
+  do
+    suffix=$(basename ${url})
+    $CRAWLER $RETRY_FLAG $RETRY_NUM $USERAGENT_FLAG "$USERAGENT_STRING" $url $OUTPUT_FLAG $save_dir/${curr}_${suffix} &
+    curr=$(($curr+1))
+  done < $from_filename
+}
+
+function ParsePage() {
   if [ -e $from ];then
     rm -rf $from;
   fi
-    mkdir $from;
+  mkdir $from;
   local k=1;
 
   if [ "$from" = "baidu" ];then
@@ -71,14 +91,15 @@ function DownPage() {
          cat $from/${k}_${query}_${i}| egrep '"objURL":".*?"' -o | awk -F'"' '{print $4}' >> $from/${k}_objURL-list_${query}
         ) &
       fi
-      
-      # Waiting for background jobs to finish before removing temporary files.
+      # Waiting for background jobs to finish before removing temporary files and downloading images.
       wait
       (
        python decode_objurl.py $from/${k}_objURL-list_${query} $from/${k}_decoded_objURL-list_${query}
        rm -rf $from/${k}_${query}* 
        rm -rf $from/${k}_objURL-list_${query}
+       DownloadImage $from/${k}_decoded_objURL-list_${query} $from/$query 
       ) &
+
 
       k=$(($k+1));
     done < query_list.txt
@@ -104,10 +125,12 @@ function DownPage() {
          cat $from/${k}_${query}_${i}| egrep 'src="http.*?"' -o | awk -F'"' '{print $2}' >> $from/${k}_objURL-list_${query}
         ) &
       fi
-
-      # Waiting for background jobs to finish before removing temporary files.
+      # Waiting for background jobs to finish before removing temporary files and downloading images
       wait
-      rm -rf $from/${k}_${query}* &
+      (
+       rm -rf $from/${k}_${query}*
+       DownloadImage $from/${k}_objURL-list_${query} $from/$query
+      ) &
 
       k=$(($k+1));
     done < query_list.txt
@@ -116,5 +139,5 @@ function DownPage() {
 
 ### main() ###
 DetectEnv
-DownPage $num
+ParsePage $num
 wait
