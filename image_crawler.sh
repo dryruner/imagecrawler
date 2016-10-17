@@ -21,7 +21,7 @@ USERAGENT_FLAG=-U  # For curl, using '-A'
 USERAGENT_STRING="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36"
 EXPERIMENT="ON"    # If you want to turn off experiment functionality, you could it to "OFF"
 
-########################## Congig END ##################################
+########################## Config END ##################################
 
 function DetectEnv() {
   which wget > /dev/null 2>&1
