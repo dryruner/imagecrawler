@@ -6,6 +6,7 @@ This is an image crawler in pure shell script, which could download the images (
 * Performance is enhanced ~10X faster, increasing the parallelism by utilizing multi-process background jobs in bash.
 * Baidu/Google image search urls are updated. This script was created ~5 years ago, and things have changed a lot since then, both baidu and google changed their image search query parameters and rules. So I took quite a few time this weekend to figure out what's the change, and update the script to make it work again.
 * A python script is introduced to decode the baidu image objURL. I planned to do it in bash script originally, but you need to introduce a hashtable, damn complicated to make it work in bash only... So I'll leave it as a TODO now - to update this python script to the bash script with the same functionality.
+* [Experiment]: Downloading images after parsing out the img urls. You could turn this feature off by specifying 'EXPERIMENT="OFF"'.
 
 ## TODO:
 * Continue to improve the performance.
